@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="FidnessAvance2" default="jar" basedir=".">
+    <description>Proyecto Java SE de Eduardo Murillo. Sin librerías externas.</description>
+    <property file="nbproject/project.properties"/>
+    <target name="init">
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="dist"/>
+    </target>
+    <target name="compile" depends="init">
+        <javac srcdir="src" destdir="${build.classes.dir}" source="8" target="8"
+               encoding="UTF-8" includeantruntime="false"/>
+    </target>
+    <target name="jar" depends="compile">
+        <jar destfile="dist/FidnessAvance2.jar" basedir="${build.classes.dir}" excludes="PruebaSistema.class">
+            <manifest><attribute name="Main-Class" value="Main"/></manifest>
+        </jar>
+    </target>
+    <target name="run" depends="compile">
+        <java classname="Main" fork="true" dir="${basedir}">
+            <classpath path="${build.classes.dir}"/>
+        </java>
+    </target>
+    <target name="test" depends="compile">
+        <mkdir dir="build/test"/>
+        <javac srcdir="test" destdir="build/test" source="8" target="8"
+               encoding="UTF-8" includeantruntime="false" classpath="${build.classes.dir}"/>
+        <java classname="PruebaSistema" fork="true" failonerror="true">
+            <classpath path="${build.classes.dir}:build/test"/>
+        </java>
+    </target>
+    <target name="clean"><delete dir="build"/><delete dir="dist"/></target>
+    <target name="javadoc">
+        <javadoc sourcepath="src" destdir="dist/javadoc" encoding="UTF-8" failonerror="false"/>
+    </target>
+</project>
